@@ -5,8 +5,10 @@
         @for (user of users; track user.name) {
             <li>
                 <app-user 
+                    [id] = "user.id"
                     [avatar]="user.avatar"
-                    [name]="user.name" 
+                    [name]="user.name"
+                    (select)="onSelectedUser($event)"
                 />
             </li>
         }

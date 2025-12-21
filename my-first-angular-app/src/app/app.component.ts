@@ -12,4 +12,8 @@ import { DUMMY_USERS } from './dummy-users';
 export class App {
   protected readonly title = signal('my-first-angular-app');
   users = DUMMY_USERS;
+
+  onSelectedUser(id: string) {
+    console.log("User tasks coming soon...", id);
+  }
 }
