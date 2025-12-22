@@ -1,4 +1,11 @@
-import { Component, Input, Output, input, computed, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+
+interface User {
+  id: string;
+  avatar: string;
+  name: string;
+}
+
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
@@ -6,17 +13,18 @@ import { Component, Input, Output, input, computed, EventEmitter } from '@angula
 })
 export class UserComponent {
   // Old version use Input
-  @Input({ required: true}) id!: string;
-  @Input({required: true}) avatar!: string;
-  @Input({required: true}) name!: string;
-  @Output() select = new EventEmitter();
+  @Input({ required: true}) user!: User;
+  @Output() select = new EventEmitter<string>();
+
+  // Same like Output(), no Signal created under the hood. just difference syntax
+  // select = output<string>();
 
   // Old version use function
   get imagePath() {
-    return "/assets/users/" + this.avatar;
+    return "/assets/users/" + this.user.avatar;
   }
 
-  // New version use input()
+  // New version use input(), under the hood supported by Signal
   // avatar = input.required<string>();
   // name = input.required<string>();
 
@@ -26,6 +34,6 @@ export class UserComponent {
   // })
 
   onSelected() {
-    this.select.emit(this.id);
+    this.select.emit(this.user.id);
   }
 }

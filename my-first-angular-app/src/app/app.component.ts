@@ -1,19 +1,25 @@
 import { Component, signal } from '@angular/core';
 import { HeaderComponent } from "./header/header.component";
 import { UserComponent } from './user/user.component';
-import { DUMMY_USERS } from './dummy-users';
+import { DUMMY_USERS } from './core/mock-data/dummy-users';
+import { TasksComponent } from "./tasks/tasks.component";
 
 @Component({
   selector: 'app-root',
-  imports: [HeaderComponent, UserComponent],
+  imports: [HeaderComponent, UserComponent, TasksComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class App {
   protected readonly title = signal('my-first-angular-app');
   users = DUMMY_USERS;
+  selectedUserId?: string;
+
+  get selectedUser() {
+    return this.users.find((user) => user.id === this.selectedUserId)!;
+  }
 
   onSelectedUser(id: string) {
-    console.log("User tasks coming soon...", id);
+    this.selectedUserId = id;
   }
 }
