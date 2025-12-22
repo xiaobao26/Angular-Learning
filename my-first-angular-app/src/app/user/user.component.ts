@@ -8,6 +8,7 @@ import { type User } from './user.modal';
 export class UserComponent {
   // Old version use Input
   @Input({ required: true}) user!: User;
+  @Input({ required: true }) selected!: boolean;
   @Output() select = new EventEmitter<string>();
 
   // Same like Output(), no Signal created under the hood. just difference syntax
