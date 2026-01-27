@@ -2,6 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { type User } from './user.modal';
 @Component({
   selector: 'app-user',
+  standalone: false,
   templateUrl: './user.component.html',
   styleUrl: './user.component.css',
 })

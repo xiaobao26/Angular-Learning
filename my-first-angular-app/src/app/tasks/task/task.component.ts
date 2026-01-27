@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { type Task } from './task.modal';
 @Component({
   selector: 'app-task',
-  imports: [],
+  standalone: false,
   templateUrl: './task.component.html',
   styleUrl: './task.component.css',
 })

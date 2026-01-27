@@ -1,12 +1,11 @@
 import { Component, Input } from '@angular/core';
-import { TaskComponent } from "./task/task.component";
 import { DUMMY_TASKS } from '../core/mock-data/dummy-tasks';
-import { NewTaskComponent } from "./new-task/new-task.component";
 import { NewTask } from './task/task.modal';
+import { TasksService } from './tasks.service';
 
 @Component({
   selector: 'app-tasks',
-  imports: [TaskComponent, NewTaskComponent],
+  standalone: false,
   templateUrl: './tasks.component.html',
   styleUrl: './tasks.component.css',
 })
@@ -16,12 +15,16 @@ export class TasksComponent {
   tasks = DUMMY_TASKS;
   isAddingTask = false;
 
+  private tasksService: TasksService;
+  constructor(tasksService: TasksService) {
+    this.tasksService = tasksService;
+  }
+
   get selectedUserTasks() {
     return this.tasks.filter((task) => task.userId === this.userid);
   }
 
   handleTaskCompleted(id: string) {
-    console.log("completed!");
     this.tasks = this.tasks.filter((task) => task.id !== id);
   }
 
@@ -34,14 +37,6 @@ export class TasksComponent {
   }
 
   onAddTask(data: NewTask) {
-    this.tasks.push({
-      id: new Date().getTime().toString(),
-      userId: this.userid,
-      title: data.title,
-      summary: data.summary,
-      dueDate: data.dueDate
-    })
-
     this.isAddingTask = false;
   }
 }
